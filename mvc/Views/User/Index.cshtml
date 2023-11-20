@@ -1,0 +1,63 @@
+@model IEnumerable<UserViewModel>
+
+<div class="card text-primary">
+    <div class="card-header text-center">
+        <h5>Users List</h5>        
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a asp-action="Create" class="btn btn-outline-primary btn-sm">Create</a>
+                        <hr />
+                        <h5 class="panel-title">Users</h5>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover table-responsive table-striped" id="MyTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.UserName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Email)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Rol)
+                                    </th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UserName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rol)
+                                        </td>
+
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Update</a>
+                                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Do you want to delite this user?');">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
